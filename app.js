@@ -29,7 +29,7 @@ function updateLocalTime() {
       method:"Get"
 
     }
-    fetch(`http://api.weatherapi.com/v1//current.json?key=9da2e733fd05417db69161750241209&q=${location}`,reop)
+    fetch(`https://api.weatherapi.com/v1//current.json?key=9da2e733fd05417db69161750241209&q=${location}`,reop)
        .then(response=>response.json())
        .then(data =>{
         console.log(data);
@@ -66,7 +66,7 @@ function updateLocalTime() {
  
         
         (function (index) { 
-            fetch(`http://api.weatherapi.com/v1/forecast.json?key=5d7a25b2cad54f73bb0112953240203&q=${searchVal}&days=8&dt=${formattedDate}&aqi=yes&alerts=yes`)
+            fetch(`https://api.weatherapi.com/v1/forecast.json?key=5d7a25b2cad54f73bb0112953240203&q=${searchVal}&days=8&dt=${formattedDate}&aqi=yes&alerts=yes`)
                 .then(response => response.json())
                 .then(data => {
                     document.getElementById(`date${index}`).innerHTML = data.forecast.forecastday[0].date;
@@ -87,7 +87,7 @@ function updateLocalTime() {
 
       
       (function (index) {
-          fetch(`http://api.weatherapi.com/v1/forecast.json?key=5d7a25b2cad54f73bb0112953240203&q=${searchVal}&days=8&dt=${formattedDate}&aqi=yes&alerts=yes`)
+          fetch(`https://api.weatherapi.com/v1/forecast.json?key=5d7a25b2cad54f73bb0112953240203&q=${searchVal}&days=8&dt=${formattedDate}&aqi=yes&alerts=yes`)
               .then(response => response.json())
               .then(data => {
                   document.getElementById(`date${index}`).innerHTML = data.forecast.forecastday[0].date;
