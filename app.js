@@ -110,8 +110,8 @@ function Viewmap(longitude,latitude){
 var map = L.map('map').setView([latitude, longitude], 13); // San Francisco coordinates
 
 // Add OpenStreetMap tiles to the map
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
 // Optional: Add a marker at the center
