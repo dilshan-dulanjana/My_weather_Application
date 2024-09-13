@@ -52,5 +52,74 @@ function updateLocalTime() {
     
        })
        .then(error=>console.log(" Error",error))
+       fetchfastForecast(location);
+       Viewmap(data["location"]["lon"],innerHTML=data["location"]["lat"]);
   };
+
+// -------------------------------------------------weather forcast-----------------------------
+  function fetchfastForecast(searchVal) {
+    const startDate = new Date();
+    let currentDay = new Date(startDate);
+
+    for (let i = 3; i >= 0; i--) {
+        const formattedDate = currentDay.toISOString().split('T')[0];
+ 
+        
+        (function (index) { 
+            fetch(`http://api.weatherapi.com/v1/forecast.json?key=5d7a25b2cad54f73bb0112953240203&q=${searchVal}&days=8&dt=${formattedDate}&aqi=yes&alerts=yes`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById(`date${index}`).innerHTML = data.forecast.forecastday[0].date;
+                    document.getElementById(`img${index}`).src = data.forecast.forecastday[0].day.condition.icon;
+
+                    document.getElementById(`title${index}`).innerHTML = data.forecast.forecastday[0].day.condition.text;
+
+                });
+        })(i); 
+        currentDay.setDate(currentDay.getDate() - 1);
+    }
+
+    currentDay = new Date(startDate);
+    for (let i = 4; i <= 7; i++) { 
+     
+      currentDay.setDate(currentDay.getDate() + 1); 
+      const formattedDate = currentDay.toISOString().split('T')[0];
+
+      
+      (function (index) {
+          fetch(`http://api.weatherapi.com/v1/forecast.json?key=5d7a25b2cad54f73bb0112953240203&q=${searchVal}&days=8&dt=${formattedDate}&aqi=yes&alerts=yes`)
+              .then(response => response.json())
+              .then(data => {
+                  document.getElementById(`date${index}`).innerHTML = data.forecast.forecastday[0].date;
+                  document.getElementById(`img${index}`).src = data.forecast.forecastday[0].day.condition.icon;
+                  document.getElementById(`title${index}`).innerHTML = data.forecast.forecastday[0].day.condition.text;
+
+              });
+      })(i); 
+     
+  }
+
+
+}
+
+// -------------------------------------------------End of weather forcast-----------------------------
+
+
+function Viewmap(longitude,latitude){
+// Initialize the map and set its view to a specific lat, lon, and zoom level
+var map = L.map('map').setView([latitude, longitude], 13); // San Francisco coordinates
+
+// Add OpenStreetMap tiles to the map
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+
+// Optional: Add a marker at the center
+L.marker([37.7749, -122.4194]).addTo(map)
+  .bindPopup('San Francisco')
+  .openPopup();
+
+
+
+}
   
